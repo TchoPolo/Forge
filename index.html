@@ -116,11 +116,25 @@ main{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;oversc
 
 /* ---------- BIG ACTION CARD ---------- */
 .big{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line);
-  background:var(--surface);margin-bottom:12px;cursor:pointer}
-.big .ill{display:block;width:100%}
-.big .ov{padding:14px 15px}
-.big .ov h3{font-size:17px;text-transform:uppercase;font-family:var(--disp)}
-.big .ov p{font-size:12.5px;color:var(--muted);margin-top:3px}
+  background:var(--surface);margin-bottom:12px;cursor:pointer;transition:transform .14s}
+.big:active{transform:scale(.985)}
+.big .ill{display:block;width:100%;aspect-ratio:16/10;overflow:hidden;position:relative}
+.big .ill svg{width:100%;height:100%;display:block}
+.big .ov{position:absolute;left:0;right:0;bottom:0;padding:36px 16px 15px;
+  background:linear-gradient(to top,rgba(8,9,11,.97) 28%,rgba(8,9,11,.82) 58%,transparent)}
+.big .ov h3{font-size:18px;text-transform:uppercase;font-family:var(--disp);color:#fff}
+.big .ov p{font-size:12.5px;color:var(--ink2);margin-top:4px}
+.big .cnr{position:absolute;top:12px;right:12px;z-index:2}
+/* accent latéral par discipline sur les cartes de séance */
+.sess{position:relative}
+.sess.d-calis{border-left:3px solid var(--calis)}
+.sess.d-muscu{border-left:3px solid var(--muscu)}
+.sess.d-hirt{border-left:3px solid var(--hirt)}
+.sess.d-run{border-left:3px solid var(--run)}
+.kpi{display:flex;gap:8px;margin-bottom:12px}
+.kpi>div{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 8px;text-align:center}
+.kpi .v{font-family:var(--disp);font-weight:800;font-size:20px}
+.kpi .l{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:2px}
 
 /* ---------- EXERCISE GRID ---------- */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -688,6 +702,45 @@ m_calf(){ return frame()+stack(178,44)+shadow(104,26)
   + stroke('M106,72 L114,76',12,SHORT)
   + stroke('M110,44 L124,54 L134,62',7)
   + head(108,28) + arrV(74,36,66); },
+w_arm(){ return mat()+shadow(110,34)
+  + stroke('M110,44 L128,32 L140,22',7,FAR)
+  + stroke('M110,42 L110,80',13)
+  + stroke('M110,80 L100,98 L98,112',9) + stroke('M110,80 L120,98 L122,112',9)
+  + stroke('M110,80 L118,84',12,SHORT)
+  + stroke('M110,44 L92,56 L82,68',7.5)
+  + '<path d="M152,28 A28,28 0 1,1 152,84" fill="none" stroke="'+ARROW+'" stroke-width="2.6" stroke-dasharray="4 5"/>'
+  + tri(152,28,'l')
+  + '<path d="M68,70 A28,28 0 1,1 68,14" fill="none" stroke="'+ARROW+'" stroke-width="2.6" stroke-dasharray="4 5" opacity=".5"/>'
+  + head(110,28); },
+w_wrist(){ return mat()+shadow(110,32)
+  + stroke('M108,50 L124,62 L136,58',7,FAR)
+  + stroke('M108,48 L106,82',13)
+  + stroke('M106,82 L98,98 L96,112',9) + stroke('M106,82 L114,98 L116,112',9)
+  + stroke('M106,82 L114,86',12,SHORT)
+  + stroke('M110,50 L126,60 L138,56',7.5)
+  + '<circle cx="152" cy="52" r="15" fill="none" stroke="'+ARROW+'" stroke-width="2.6" stroke-dasharray="4 5"/>'
+  + tri(152,37,'r')
+  + '<circle cx="152" cy="52" r="3.5" fill="'+ARROW+'" opacity=".5"/>'
+  + head(108,34); },
+w_hip(){ return mat()+shadow(110,36)
+  + stroke('M110,46 L92,58 L84,64',6.5,FAR)
+  + stroke('M110,44 L110,78',13)
+  + stroke('M110,78 L100,96 L98,112',9) + stroke('M110,78 L120,96 L122,112',9)
+  + stroke('M110,78 L119,82',12,SHORT)
+  + stroke('M110,46 L128,58 L136,64',7)
+  + '<ellipse cx="110" cy="80" rx="34" ry="12" fill="none" stroke="'+ARROW+'" stroke-width="2.6" stroke-dasharray="4 5"/>'
+  + tri(144,80,'r') + tri(76,80,'l')
+  + head(110,30); },
+w_ankle(){ return mat()+shadow(104,32)
+  + stroke('M104,48 L120,58 L130,54',6.5,FAR)
+  + stroke('M104,46 L102,78',13)
+  + stroke('M102,78 L98,96 L98,112',9)
+  + stroke('M102,78 L116,90 L128,96',9)
+  + stroke('M102,78 L110,82',12,SHORT)
+  + stroke('M106,48 L122,56 L132,52',7)
+  + '<circle cx="136" cy="98" r="11" fill="none" stroke="'+ARROW+'" stroke-width="2.6" stroke-dasharray="4 5"/>'
+  + tri(136,87,'r')
+  + head(104,32); },
 m_boxe(){ return mat()+shadow(78,32)
   + '<rect x="146" y="14" width="4" height="18" fill="#525C69"/>'
   + '<rect x="132" y="32" width="32" height="58" rx="14" fill="#39414D"/>'
@@ -701,12 +754,20 @@ m_boxe(){ return mat()+shadow(78,32)
   + head(76,40) + arrH(122,146,40); }
 };
 let _fid=0;
+function figHero(k){
+  _fid++;
+  _acc=(EX[k]&&EX[k].disc)?(DISCCOL[EX[k].disc]||'#D8FF3D'):'#D8FF3D';
+  const body=scene(_fid)+(DRAW[k]?DRAW[k]():'');
+  _acc='#D8FF3D';
+  return '<svg viewBox="14 18 192 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img">'+body+'</svg>';
+}
 function figSVG(k, w){
   w = w || 220; _fid++;
   _acc = (EX[k]&&EX[k].disc) ? (DISCCOL[EX[k].disc]||'#D8FF3D') : '#D8FF3D';
   const body = scene(_fid) + (DRAW[k]?DRAW[k]():'');
   _acc='#D8FF3D';
-  return '<svg viewBox="0 0 220 140" width="'+w+'" xmlns="http://www.w3.org/2000/svg" role="img">'+body+'</svg>';
+  return '<svg viewBox="0 0 220 140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img"'
+    +' style="display:block;width:100%;height:auto">'+body+'</svg>';
 }
 
 /* ================= BIBLIOTHÈQUE ================= */
@@ -875,7 +936,23 @@ m_calf:{n:'Mollets debout', ms:'Mollets (triceps sural)', cat:'Machine · Jambes
 m_boxe:{n:'Sac de frappe', ms:'Cardio · épaules · gainage', cat:'Machine · Cardio', disc:'muscu', kg:0,
  steps:['Garde haute, mains au niveau des pommettes, menton rentré.','Pieds décalés largeur d\'épaules, genoux souples, jamais figés.','Frappe en partant des hanches : la rotation du buste fait la puissance.','Ramène toujours la main à la garde après chaque coup. Travaille par rounds.'],
  err:['Frapper avec le bras seul (aucune puissance, épaule qui souffre).','Poignet mou à l\'impact.','Baisser la garde entre les coups.'],
- chain:['Shadow boxing sans sac','Rounds 1 min','Rounds 2 min','Rounds 3 min + combinaisons']}
+ chain:['Shadow boxing sans sac','Rounds 1 min','Rounds 2 min','Rounds 3 min + combinaisons']},
+w_arm:{n:'Cercles de bras', ms:'Épaules · mobilité scapulaire', cat:'Mobilité', disc:'calis',
+ steps:['Debout, bras tendus sur les côtés à hauteur d\'épaules.','Décris de grands cercles vers l\'avant, de plus en plus amples.','À mi-parcours, inverse le sens vers l\'arrière.','Reste gainé, épaules basses, ne cambre pas le dos.'],
+ err:['Cercles minuscules.','Monter les épaules aux oreilles.','Aller trop vite dès le départ.'],
+ chain:['Petits cercles','Cercles de bras','Grands cercles alternés']},
+w_wrist:{n:'Cercles de poignets', ms:'Poignets · avant-bras', cat:'Mobilité', disc:'calis',
+ steps:['Doigts entrelacés devant toi, coudes légèrement fléchis.','Décris des cercles avec les poignets dans un sens.','Inverse le sens à mi-parcours.','Termine paume contre paume, coudes qui montent doucement.'],
+ err:['Sauter cette étape (zone n°1 de douleur en callisthénie).','Forcer sur une amplitude douloureuse.'],
+ chain:['Cercles simples','Cercles + extension','Appuis au sol progressifs']},
+w_hip:{n:'Rotations de hanches', ms:'Hanches · bas du dos', cat:'Mobilité', disc:'calis',
+ steps:['Debout, pieds largeur d\'épaules, mains sur les hanches.','Décris de grands cercles avec le bassin, buste le plus stable possible.','Moitié du temps dans un sens, moitié dans l\'autre.','Amplitude progressive, jamais d\'à-coups.'],
+ err:['Bouger tout le buste au lieu du bassin.','Cercles trop rapides.'],
+ chain:['Petits cercles','Rotations de hanches','Cercles + fente ouverte']},
+w_ankle:{n:'Mobilité chevilles', ms:'Chevilles · mollets', cat:'Mobilité', disc:'run',
+ steps:['En appui sur une jambe, pointe de l\'autre pied posée au sol.','Décris des cercles avec la cheville, un sens puis l\'autre.','Change de pied à mi-temps.','Finis par 10 flexions-extensions (pointe vers le haut, vers le bas).'],
+ err:['Sauter cette étape avant une course.','Forcer sur une cheville douloureuse.'],
+ chain:['Cercles assis','Mobilité chevilles debout','Cercles + fente cheville au mur']}
 };
 
 /* ================= OBJECTIFS & PROGRAMMES ================= */
@@ -1045,7 +1122,11 @@ const CUES={pompe:'Corps gainé, coudes à quarante-cinq degrés.',
  m_glute:'Serre la fesse, ne cambre pas le dos.',
  m_ep:'Gainage serré, ne cambre pas.',
  m_calf:'Amplitude complète, monte le plus haut possible.',
- m_boxe:'Garde haute, la puissance vient des hanches.'};
+ m_boxe:'Garde haute, la puissance vient des hanches.',
+ w_arm:'Grands cercles, épaules basses.',
+ w_wrist:'Doigts entrelacés, cercles doux.',
+ w_hip:'Grands cercles du bassin, buste stable.',
+ w_ankle:'Cercles de cheville, change de pied à mi-temps.'};
 function frVoice(){ try{ return speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith('fr')); }catch(e){ return null; } }
 function speak(t,prio){
   if(!state.voice) return;
@@ -1090,12 +1171,12 @@ function toggleMetro(){
 const WARM=[
  {ex:'jack',label:'Jumping jacks légers'},
  {ex:'knees',label:'Montées de genoux douces'},
- {ex:'jack',label:'Cercles de bras & épaules'},
- {ex:'pompe_inc',label:'Cercles de poignets'},
- {ex:'squat',label:'Rotations de hanches'},
+ {ex:'w_arm',label:'Cercles de bras'},
+ {ex:'w_wrist',label:'Cercles de poignets'},
+ {ex:'w_hip',label:'Rotations de hanches'},
+ {ex:'w_ankle',label:'Mobilité chevilles'},
  {ex:'squat',label:'Squats lents, grande amplitude'},
- {ex:'fente',label:'Fentes dynamiques'},
- {ex:'pompe_inc',label:'Pompes inclinées faciles'}];
+ {ex:'fente',label:'Fentes dynamiques'}];
 
 /* ================= COURS ================= */
 const COURSE = [
@@ -1201,7 +1282,7 @@ const DEFREPS={pompe:'8-12',pompe_inc:'12-15',pike:'6-10',dips:'10-15',squat:'15
  row:'8-12',negpull:'4-6',climber:'30s',burpee:'8-12',jack:'30s',knees:'30s',jsquat:'10-15',
  decl:'6-10',diam:'6-10',crunch:'15-20',twist:'20',chaise:'30-45s',sumo:'15-20',skater:'30s',talons:'30s',
  m_dev:'8-12',m_tir:'8-12',m_fly:'12-15',m_press:'10-12',m_curl:'10-12',m_tri:'12-15',m_row:'10-12',
- m_lat:'15',m_leg:'12-15',m_ham:'12-15',m_glute:'12-15/j',m_ep:'10-12',m_calf:'15-20',m_boxe:'2 min'};
+ m_lat:'15',m_leg:'12-15',m_ham:'12-15',m_glute:'12-15/j',m_ep:'10-12',m_calf:'15-20',m_boxe:'2 min',w_arm:'30s',w_wrist:'30s',w_hip:'30s',w_ankle:'30s'};
 const FAMNAME={push:'Poussée',pull:'Tirage',legs:'Jambes',core:'Gainage',cardio:'Cardio'};
 function discOf(k){ return (EX[k]&&EX[k].disc)||'calis'; }
 function famOf(k){ const c=EX[k].cat;
@@ -1240,7 +1321,7 @@ function famHistory(){
 function genSession(mins, ranToday){
   const nEx = mins<=15?3:(mins<=30?5:6);
   const fh=famHistory();
-  const pool=Object.keys(EX).filter(k=>!(ranToday&&(k==='jsquat'||k==='burpee')));
+  const pool=Object.keys(EX).filter(k=>EX[k].cat!=='Mobilité' && !(ranToday&&(k==='jsquat'||k==='burpee')));
   function score(k){
     const f=famOf(k);
     let sc=10 - Math.min(10,(fh.cnt[f]||0)*2);
@@ -1380,14 +1461,17 @@ function renderToday(){
   let h='<div class="hero"><div class="eyebrow">'+hello+' · '+now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+'</div>'
    +'<h2>Ta séance<br><span class="accent">du jour</span></h2>'
    +'<p>'+OBJ[state.objective].t+' · '+DIFF[state.diff].ic+' '+DIFF[state.diff].t+'</p>'
-   +'<div class="row" style="margin-top:14px;gap:6px;flex-wrap:wrap">'
-   +'<span class="tag"><i style="background:var(--volt)"></i>'+wk.filter(x=>x.type!=='run').length+' séance'+(wk.filter(x=>x.type!=='run').length>1?'s':'')+'</span>'
-   +'<span class="tag"><i style="background:var(--run)"></i>'+wk.filter(x=>x.type==='run').length+' course'+(wk.filter(x=>x.type==='run').length>1?'s':'')+'</span>'
-   +'<span class="tag"><i style="background:var(--muscu)"></i>'+mins+ ' min</span></div></div>';
-  /* séance recommandée */
-  h+='<div class="big" onclick="goTab(\'train\')"><span class="ill">'+figSVG(sess.items[0].ex,600)+'</span>'
-   +'<div class="ov"><div class="eyebrow" style="margin-bottom:4px">Recommandé aujourd\'hui</div>'
-   +'<h3>'+sess.title+'</h3><p>'+sess.items.length+' exercices · repos '+restSecs()+' s · '+state.prog.name+'</p></div></div>';
+   +'</div>';
+  h+='<div class="kpi">'
+   +'<div><div class="v" style="color:var(--volt)">'+wk.filter(x=>x.type!=='run').length+'</div><div class="l">Séances</div></div>'
+   +'<div><div class="v" style="color:var(--run)">'+wk.filter(x=>x.type==='run').length+'</div><div class="l">Courses</div></div>'
+   +'<div><div class="v" style="color:var(--muscu)">'+mins+'</div><div class="l">Minutes</div></div>'
+   +'<div><div class="v">'+g.streak+'</div><div class="l">Sem. suivies</div></div></div>';
+  /* séance recommandée — carte cinématique */
+  h+='<div class="big" onclick="goTab(\'train\')"><div class="ill">'+figHero(sess.items[0].ex)+'</div>'
+   +'<span class="badge-sun cnr">'+sess.items.length+' exercices</span>'
+   +'<div class="ov"><div class="eyebrow" style="margin-bottom:4px;color:var(--volt)">Recommandé aujourd\'hui</div>'
+   +'<h3>'+sess.title+'</h3><p>Repos '+restSecs()+' s · '+state.prog.name+'</p></div></div>';
   h+='<div class="row" style="margin-bottom:12px"><button class="btn sun xl grow" onclick="startSession(state.prog.sessions.find(s=>s.id===\''+nx+'\')||state.prog.sessions[0])">▶ Démarrer</button>'
    +'<button class="btn dim" onclick="startWarm()" aria-label="échauffement">🔥</button></div>';
   h+='<div class="grid2" style="margin-bottom:12px">'
@@ -1498,7 +1582,7 @@ function renderMoves(){
 }
 function openEx(k){
   const e=EX[k];
-  let h = '<div class="handle"></div>'+figSVG(k,600).replace('<svg','<svg style="border-radius:14px;display:block;width:100%;margin-bottom:12px"')
+  let h = '<div class="handle"></div>'+figSVG(k,600)
    + '<div class="eyebrow" style="color:'+catColor(e.cat)+'">● '+e.cat+'</div><h2>'+e.n+'</h2><div class="muted">'+e.ms+'</div>'
    + '<div class="sec"><div class="eyebrow">Exécution</div><ol class="steps">'+e.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol></div>'
    + '<div class="sec"><div class="eyebrow">Erreurs fréquentes</div><ul class="dots">'+e.err.map(s=>'<li>'+s+'</li>').join('')+'</ul></div>'
@@ -1573,7 +1657,7 @@ function progBody(embed){
     + (editing?'<button class="btn danger" onclick="resetProg()">Réinit.</button>':'')+'</div>';
   state.prog.sessions.forEach((s,si)=>{
     const isNext = s.id===nx && state.history.length;
-    h += '<div class="sess"'+(isNext?' style="border-color:var(--sun)"':'')+'><div class="head"><h3>'+s.title+'</h3><span class="badge-sun">'+(isNext?'▶ À toi':s.hint)+'</span></div>';
+    h += '<div class="sess d-'+discOf(s.items[0].ex)+'"'+(isNext?' style="box-shadow:0 0 0 1px var(--volt) inset"':'')+'><div class="head"><h3>'+s.title+'</h3><span class="badge-sun">'+(isNext?'▶ À toi':s.hint)+'</span></div>';
     s.items.forEach((it,ii)=>{
       const e=EX[it.ex]; if(!e) return;
       h += '<div class="exline" style="border-left:3px solid '+catColor(e.cat)+'"><div class="thumb">'+figSVG(it.ex,66)+'</div>'
@@ -1638,9 +1722,20 @@ function renderRun(){
     run.done[run.idx].forEach((d,k)=>{
       h+='<button class="setbtn '+(d?'done':'')+'" onclick="tickSet('+k+')">'+(d?'✓':(k+1))+'</button>';
     });
-    h+='</div>'
-     +'<button class="hitbtn '+(run.hit[run.idx]?'on':'')+'" onclick="tickHit()">'+(run.hit[run.idx]?'🎯 Haut de fourchette atteint — noté !':'🎯 Haut de fourchette atteint ? Tape ici si oui')+'</button>'
-     +'<button class="hitbtn '+(metH?'on':'')+'" style="margin-top:8px" onclick="toggleMetro()">'+(metH?'🎵 Métronome actif — grave = descente, aigu = montée. Pas de son ? Désactive le mode silencieux (bouton latéral).':'🎵 Lancer le métronome tempo 2-1-2')+'</button>'
+    h+='</div>';
+    if(isTimed(scaleReps(it.reps))){
+      if(run.st){
+        h+='<div class="hscreen work" style="margin-top:12px">'
+         +'<div class="hphase hwork">'+(run.st.sides>1?'Côté '+run.st.side+' / '+run.st.sides:'Tiens la position')+'</div>'
+         +ring(run.st.left,run.st.total,'#D8FF3D',150)
+         +'<div class="row"><button class="btn dim grow" onclick="pauseSetTimer()">'+(run.st.paused?'▶ Reprendre':'⏸ Pause')+'</button>'
+         +'<button class="btn ghost" onclick="stopSetTimer()">✕</button></div></div>';
+      } else {
+        h+='<button class="btn sun wide" style="margin-top:10px" onclick="startSetTimer()">⏱ Lancer le chrono · '+timedSecs(scaleReps(it.reps))+' s'+(perSide(scaleReps(it.reps))?' × 2 côtés':'')+'</button>';
+      }
+    }
+    h+='<button class="hitbtn '+(run.hit[run.idx]?'on':'')+'" style="margin-top:10px" onclick="tickHit()">'+(run.hit[run.idx]?'🎯 Haut de fourchette atteint — noté !':'🎯 Haut de fourchette atteint ? Tape ici si oui')+'</button>'
+     +(isTimed(scaleReps(it.reps))?'':'<button class="hitbtn '+(metH?'on':'')+'" style="margin-top:8px" onclick="toggleMetro()">'+(metH?'🎵 Métronome actif — grave = descente, aigu = montée. Pas de son ? Désactive le mode silencieux.':'🎵 Lancer le métronome tempo 2-1-2')+'</button>')
      +'<a class="btn ghost wide" style="margin-top:10px" href="'+ytUrl(it.ex)+'" target="_blank" rel="noopener">▶ Voir la technique en vidéo</a>'
      +'<p class="muted" style="margin-top:8px;font-size:12.5px">Tempo 2-1-2, amplitude complète, repos '+rest+' s.'+(reg?' Trop dur aujourd\'hui ? Régresse sans ego : '+reg+'.':'')+'</p>';
   }
@@ -1652,22 +1747,58 @@ function renderRun(){
     +'</div></div>';
   M.innerHTML=h;
 }
+/* --- chrono de série pour les exercices temporisés --- */
+function isTimed(r){ return /\d\s*s/.test(String(r)); }
+function perSide(r){ return /\/c/.test(String(r)); }
+function timedSecs(r){ const m=String(r).match(/\d+/g); return m? parseInt(m[m.length-1]) : 30; }
+let setT=null;
+function startSetTimer(){
+  const it=run.s.items[run.idx], r=scaleReps(it.reps);
+  const sec=timedSecs(r);
+  run.st={left:sec,total:sec,side:1,sides:perSide(r)?2:1,paused:false};
+  ensureAudio(); beep(880,.15); vib(60);
+  speak(perSide(r)?'Premier côté. C\'est parti.':'C\'est parti.',true);
+  clearInterval(setT); setT=setInterval(tickSetTimer,1000);
+  renderRun();
+}
+function tickSetTimer(){
+  if(!run||!run.st){ clearInterval(setT); return; }
+  if(run.st.paused) return;
+  run.st.left--;
+  if(run.st.left<=3&&run.st.left>0){ beep(660,.12,.28); vib(40); }
+  if(run.st.left<=0){
+    beep(990,.35,.32); vib(200);
+    if(run.st.side<run.st.sides){
+      run.st.side++; run.st.left=run.st.total;
+      speak('Change de côté.',true);
+    } else {
+      clearInterval(setT);
+      const nx=run.done[run.idx].findIndex(d=>!d);
+      run.st=null;
+      if(nx>=0){ tickSet(nx); return; }
+      speak('Série terminée.',true);
+    }
+  }
+  renderRun();
+}
+function pauseSetTimer(){ run.st.paused=!run.st.paused; renderRun(); }
+function stopSetTimer(){ clearInterval(setT); run.st=null; renderRun(); }
 function tickSet(k){
   run.done[run.idx][k]=!run.done[run.idx][k];
   if(run.done[run.idx][k] && run.done[run.idx].some(x=>!x)){ startRest(restSecs()); speak('Repos.'); } else { renderRun(); }
 }
 function tickHit(){ run.hit[run.idx]=!run.hit[run.idx]; renderRun(); }
-function startRest(sec){ stopMetro(); run.rest=sec; clearInterval(timerH);
+function startRest(sec){ stopMetro(); clearInterval(setT); run.st=null; run.rest=sec; clearInterval(timerH);
   timerH=setInterval(()=>{ if(!run){ clearInterval(timerH); return; } run.rest--;
     if(run.rest<=3&&run.rest>0){ beep(660,.1); vib(40); }
     if(run.rest<=0){ clearInterval(timerH); run.rest=0; beep(990,.25); vib(180); speak('C\'est reparti !',true); }
     renderRun(); },1000);
   renderRun(); }
 function skipRest(){ clearInterval(timerH); run.rest=0; renderRun(); }
-function moveRun(d){ clearInterval(timerH); stopMetro(); run.rest=0; run.idx=Math.max(0,Math.min(run.s.items.length-1,run.idx+d)); M.scrollTop=0; renderRun(); sayEx(); }
-function quitRun(){ if(confirm('Quitter sans enregistrer la séance ?')){ clearInterval(timerH); stopMetro(); shutUp(); run=null; render(); } }
+function moveRun(d){ clearInterval(timerH); clearInterval(setT); if(run) run.st=null; stopMetro(); run.rest=0; run.idx=Math.max(0,Math.min(run.s.items.length-1,run.idx+d)); M.scrollTop=0; renderRun(); sayEx(); }
+function quitRun(){ if(confirm('Quitter sans enregistrer la séance ?')){ clearInterval(timerH); clearInterval(setT); stopMetro(); shutUp(); run=null; render(); } }
 function finishRun(){
-  clearInterval(timerH); stopMetro(); speak('Séance terminée. Bravo !',true);
+  clearInterval(timerH); clearInterval(setT); stopMetro(); speak('Séance terminée. Bravo !',true);
   const s=run.s;
   const setsDone=run.done.flat().filter(Boolean).length;
   const setsTotal=run.done.flat().length;
@@ -1925,7 +2056,7 @@ function gardenStats(){
 }
 function gardenSVG(){
   const g=gardenStats(), t=g.total; _fid++;
-  let s='<svg viewBox="0 0 220 140" width="600" style="display:block;width:100%" xmlns="http://www.w3.org/2000/svg" role="img">'
+  let s='<svg viewBox="0 0 220 140" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:auto" xmlns="http://www.w3.org/2000/svg" role="img">'
    +'<defs><linearGradient id="gsky'+_fid+'" x1="0" y1="0" x2="0" y2="1">'
    +'<stop offset="0" stop-color="#152233"/><stop offset=".55" stop-color="#12202A"/><stop offset="1" stop-color="#101A18"/></linearGradient></defs>'
    +'<rect width="220" height="140" fill="url(#gsky'+_fid+')"/>'
