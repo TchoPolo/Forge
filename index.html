@@ -283,7 +283,7 @@ details.pcard .body b{color:var(--ink)}
 <nav class="tabbar" id="tabbar"></nav>
 
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
-<input type="file" id="gpxin" accept=".gpx,.tcx,.xml,application/gpx+xml,text/xml" style="display:none" onchange="onFile(this)">
+<input type="file" id="gpxin" style="display:none" onchange="onFile(this)">
 <div class="toast" id="toast"></div>
 
 <script>
@@ -752,7 +752,61 @@ m_boxe(){ return mat()+shadow(78,32)
   + stroke('M72,84 L82,86',12,SHORT)
   + stroke('M78,56 L100,58 L118,54',7.5)
   + '<circle cx="122" cy="53" r="6" fill="'+ARROW+'"/>'
-  + head(76,40) + arrH(122,146,40); }
+  + head(76,40) + arrH(122,146,40); },
+m_pull(){ return bench(78,64,88)+frame()+stack(178,44)+shadow(110,42)
+  + cable('M181,24 L181,44 L146,44 L146,60')
+  + barAcc(120,58,30)
+  + stroke('M104,60 L120,48 L134,42',7,FAR)
+  + stroke('M96,86 L104,66',13)
+  + stroke('M96,86 L118,90 L138,88',9)
+  + stroke('M96,86 L84,90',12,SHORT)
+  + stroke('M100,60 L118,50 L132,44',7.5)
+  + head(92,68) + arrDown(150,42,66); },
+m_crunchp(){ return frame()+stack(178,44)+mat()+shadow(104,34)
+  + cable('M181,24 L181,50 L146,58')
+  + '<circle cx="140" cy="56" r="6" fill="none" stroke="#9AA5B2" stroke-width="2"/>'
+  + stroke('M108,58 L118,50 L128,46',6.5,FAR)
+  + stroke('M110,56 C104,66 98,76 94,86',13)
+  + stroke('M94,86 L104,100 L100,112',9) + stroke('M94,86 L112,98 L112,112',9)
+  + stroke('M96,84 L108,84',12,SHORT)
+  + stroke('M110,58 L122,52 L132,48',7.5)
+  + head(104,46) + arrDown(66,52,84); },
+m_obliq(){ return frame()+stack(178,44)+shadow(102,34)
+  + cable('M181,44 L181,66 L150,66')+pulley(146,66)
+  + barAcc(122,64,22)
+  + stroke('M100,50 L108,60 L112,64',6.5,FAR)
+  + stroke('M102,48 L100,80',13)
+  + stroke('M100,80 L92,98 L96,112',9) + stroke('M100,80 L110,98 L108,112',9)
+  + stroke('M100,80 L110,84',12,SHORT)
+  + stroke('M104,50 L114,60 L120,64',7)
+  + head(98,36) + arrH(62,96,54); },
+m_facepull(){ return frame()+stack(178,44)+shadow(100,32)
+  + cable('M181,24 L181,44 L148,50')
+  + '<circle cx="142" cy="52" r="6" fill="none" stroke="#9AA5B2" stroke-width="2"/>'
+  + stroke('M100,54 L118,46 L130,44',7,FAR)
+  + stroke('M102,52 L100,80',13)
+  + stroke('M100,80 L92,98 L96,112',9) + stroke('M100,80 L110,98 L108,112',9)
+  + stroke('M100,80 L110,84',12,SHORT)
+  + stroke('M104,54 L122,48 L134,46',7.5)
+  + head(98,40) + arrDown(150,44,72); },
+m_uprow(){ return frame()+stack(178,44)+shadow(102,32)
+  + cable('M181,44 L181,66 L140,66')+pulley(146,66)
+  + barAcc(112,62,26)
+  + stroke('M104,52 L110,64 L112,68',6.5,FAR)
+  + stroke('M106,50 L104,80',13)
+  + stroke('M104,80 L96,98 L100,112',9) + stroke('M104,80 L114,98 L112,112',9)
+  + stroke('M104,80 L114,84',12,SHORT)
+  + stroke('M108,52 L114,64 L116,68',7)
+  + head(102,36) + arrUp(148,42,66); },
+m_hipab(){ return frame()+shadow(96,32)
+  + '<rect x="128" y="96" width="10" height="8" rx="3" fill="#4A535F"/>'
+  + cable('M128,100 L96,100')
+  + stroke('M94,50 L94,80',13)
+  + stroke('M94,80 L82,98 L86,112',9) + stroke('M94,80 L118,92 L128,98',9)
+  + stroke('M94,80 L104,84',12,SHORT)
+  + stroke('M96,50 L110,60 L108,72',7,FAR)
+  + stroke('M92,50 L78,60 L80,72',7.5)
+  + head(93,38) + arrH(140,166,98); }
 };
 let _fid=0;
 function figHero(k){
@@ -938,6 +992,30 @@ m_boxe:{n:'Sac de frappe', ms:'Cardio · épaules · gainage', cat:'Machine · C
  steps:['Garde haute, mains au niveau des pommettes, menton rentré.','Pieds décalés largeur d\'épaules, genoux souples, jamais figés.','Frappe en partant des hanches : la rotation du buste fait la puissance.','Ramène toujours la main à la garde après chaque coup. Travaille par rounds.'],
  err:['Frapper avec le bras seul (aucune puissance, épaule qui souffre).','Poignet mou à l\'impact.','Baisser la garde entre les coups.'],
  chain:['Shadow boxing sans sac','Rounds 1 min','Rounds 2 min','Rounds 3 min + combinaisons']},
+m_pull:{n:'Pull-over à la poulie', ms:'Grand dorsal · pectoraux · serratus', cat:'Machine · Tirage', disc:'muscu', kg:1,
+ steps:['Allongé sur un banc, tête sous la poulie haute, barre saisie bras tendus au-dessus de la tête.','Cage thoracique gainée, bas du dos au contact du banc.','Descends les bras tendus (légère flexion des coudes) jusqu\'aux hanches, en expirant.','Remonte en contrôle jusqu\'à l\'étirement complet du dos, sans cambrer.'],
+ err:['Plier trop les coudes (ça devient un mouvement de triceps).','Cambrer pour aller chercher plus d\'amplitude.','Aller trop vite en descente.'],
+ chain:['Pull-over léger amplitude','Pull-over 12-15','Pull-over 10-12 lourd','Tempo lent + pause en bas']},
+m_crunchp:{n:'Crunch à la poulie haute', ms:'Abdominaux (grand droit)', cat:'Machine · Gainage', disc:'muscu', kg:1,
+ steps:['À genoux face à la poulie haute, corde tenue de chaque côté du visage.','Hanches fixes, ne bouge pas les fesses vers les talons.','Enroule le buste vers le bas en contractant les abdos, coudes vers les genoux.','Reviens en contrôle sans totalement relâcher la tension.'],
+ err:['Tirer avec les bras au lieu d\'enrouler le buste.','Bouger le bassin au lieu de la cage thoracique.','Charge trop lourde qui casse la technique.'],
+ chain:['Crunch poulie léger','Crunch poulie 15-20','15-20 tempo lent','Charge + pause en bas']},
+m_obliq:{n:'Rotation du buste à la poulie', ms:'Obliques', cat:'Machine · Gainage', disc:'muscu', kg:1,
+ steps:['Debout, de côté par rapport à la poulie basse, bras tendus devant toi tenant la poignée.','Pieds ancrés, hanches fixes — seul le buste tourne.','Fais pivoter le buste à l\'opposé de la poulie, bras qui suivent sans plier.','Reviens en contrôle jusqu\'à faire face à la machine.'],
+ err:['Faire tourner les hanches au lieu du buste.','Plier les bras pendant la rotation.','Amplitude exagérée qui tord le bas du dos.'],
+ chain:['Rotation légère amplitude réduite','Rotation 12-15/côté','12-15 lourd/côté','Position genoux fléchis (plus strict)']},
+m_facepull:{n:'Tirage visage à la poulie', ms:'Deltoïde postérieur · haut du dos', cat:'Machine · Épaules', disc:'muscu', kg:1,
+ steps:['Debout face à la poulie haute, corde saisie mains en pronation, bras tendus.','Tire la corde vers le visage en écartant les mains, coudes hauts et larges.','Serre les omoplates en fin de mouvement, 1 seconde de pause.','Reviens en contrôle jusqu\'aux bras tendus.'],
+ err:['Coudes qui descendent (devient un rowing).','Tirer avec les biceps plutôt que les épaules/dos.','Charge trop lourde, amplitude écourtée.'],
+ chain:['Face pull léger','Face pull 15-20','15-20 avec pause 2s','Charge + tempo lent']},
+m_uprow:{n:'Tirage menton à la poulie', ms:'Épaules (deltoïde) · trapèzes', cat:'Machine · Épaules', disc:'muscu', kg:1,
+ steps:['Debout face à la poulie basse, barre saisie mains rapprochées, bras tendus devant toi.','Tire la barre vers le haut, le long du corps, coudes qui montent au-dessus des mains.','Monte jusqu\'à hauteur du menton environ, coudes toujours plus hauts que les poignets.','Redescends en contrôle jusqu\'aux bras tendus.'],
+ err:['Monter trop haut (risque d\'épaule au-delà des épaules).','Coudes qui restent bas — les poignets tirent tout le travail.','Balancer le buste pour aider.'],
+ chain:['Tirage menton léger','Tirage menton 12-15','10-12 lourd','Tempo lent + pause en haut']},
+m_hipab:{n:'Abduction de hanche à la poulie', ms:'Moyen fessier · stabilité de hanche', cat:'Machine · Jambes', disc:'muscu', kg:1,
+ steps:['Sangle à la cheville, de profil par rapport à la poulie basse, main en appui pour l\'équilibre.','Jambe d\'appui légèrement fléchie, bassin stable, ne pas se pencher sur le côté.','Écarte la jambe reliée à la poulie sur le côté, en contrôle, jambe quasi tendue.','Reviens lentement sans laisser la charge tirer le bassin.'],
+ err:['Pencher le buste pour aider le mouvement.','Faire tourner le pied/la jambe pendant l\'écartement.','Amplitude minuscule avec charge trop lourde.'],
+ chain:['Abduction sans charge','Abduction 12-15/j','12-15 tempo lent','Charge + pause en écart max']},
 w_arm:{n:'Cercles de bras', ms:'Épaules · mobilité scapulaire', cat:'Mobilité', disc:'calis',
  steps:['Debout, bras tendus sur les côtés à hauteur d\'épaules.','Décris de grands cercles vers l\'avant, de plus en plus amples.','À mi-parcours, inverse le sens vers l\'arrière.','Reste gainé, épaules basses, ne cambre pas le dos.'],
  err:['Cercles minuscules.','Monter les épaules aux oreilles.','Aller trop vite dès le départ.'],
@@ -1059,7 +1137,21 @@ const DIFF={
 };
 function scaleReps(r){ const m=DIFF[state.diff].rm; if(m===1) return r;
   return String(r).replace(/\d+/g, n=>Math.max(1,Math.round(parseInt(n)*m))); }
-function restSecs(){ return Math.max(30, Math.round(OBJ[state.objective].rest*DIFF[state.diff].restm/5)*5); }
+const RESTPREF={court:{ic:'⏩',t:'Court',m:.65},normal:{ic:'⏱',t:'Normal',m:1},long:{ic:'⏳',t:'Long',m:1.35}};
+function restSecs(){ const rp=RESTPREF[state.restPref||'normal'].m;
+  return Math.max(15, Math.round(OBJ[state.objective].rest*DIFF[state.diff].restm*rp/5)*5); }
+function openRestPref(){
+  let h='<div class="handle"></div><h2>⏱ Temps de repos</h2><p class="muted" style="margin-bottom:12px">S\'ajoute à ta difficulté, sans modifier le programme de base. Actuellement : <b>'+restSecs()+' s</b> entre les séries.</p>';
+  Object.keys(RESTPREF).forEach(k=>{
+    h+='<button class="objopt '+(k===(state.restPref||'normal')?'on':'')+'" onclick="setRestPref(\''+k+'\')">'
+      +'<div class="t">'+RESTPREF[k].ic+' '+RESTPREF[k].t+(k===(state.restPref||'normal')?' ●':'')+'</div>'
+      +'<div class="d">Repos ×'+RESTPREF[k].m+' — '+Math.max(15,Math.round(OBJ[state.objective].rest*DIFF[state.diff].restm*RESTPREF[k].m/5)*5)+' s dans ta config actuelle</div></button>';
+  });
+  h+='<button class="btn dim wide" onclick="closeModal()">Fermer</button>';
+  document.getElementById('sheet').innerHTML=h;
+  document.getElementById('modal').classList.add('on');
+}
+function setRestPref(k){ state.restPref=k; save(); closeModal(); render(); toast('Repos : '+RESTPREF[k].ic+' '+RESTPREF[k].t); }
 function scaleH(w){ const D=DIFF[state.diff]; if(!D.hw&&!D.hr) return w;
   const c=JSON.parse(JSON.stringify(w));
   if(c.work) c.work=Math.max(15,c.work+D.hw);
@@ -1124,6 +1216,12 @@ const CUES={pompe:'Corps gainé, coudes à quarante-cinq degrés.',
  m_ep:'Gainage serré, ne cambre pas.',
  m_calf:'Amplitude complète, monte le plus haut possible.',
  m_boxe:'Garde haute, la puissance vient des hanches.',
+ m_pull:'Bras tendus, cage thoracique gainée.',
+ m_crunchp:'Enroule le buste, hanches fixes.',
+ m_obliq:'Fais tourner le buste, pas les hanches.',
+ m_facepull:'Coudes hauts, serre les omoplates.',
+ m_uprow:'Coudes toujours plus hauts que les mains.',
+ m_hipab:'Bassin stable, jambe qui s\'écarte en contrôle.',
  w_arm:'Grands cercles, épaules basses.',
  w_wrist:'Doigts entrelacés, cercles doux.',
  w_hip:'Grands cercles du bassin, buste stable.',
@@ -1210,7 +1308,9 @@ async function load(){
   if(!state.hirt) state.hirt=[];
   if(!state.diff) state.diff='normal';
   if(state.voice===undefined) state.voice=true;
+  if(!state.restPref) state.restPref='normal';
   if(!state.profile) state.profile={age:40,hrMax:180,hrRest:60};
+  if(resumeTrk()){ render(); toast('Activité en cours reprise 🏃'); return; }
   render();
 }
 async function save(){
@@ -1285,8 +1385,42 @@ const DEFREPS={pompe:'8-12',pompe_inc:'12-15',pike:'6-10',dips:'10-15',squat:'15
  row:'8-12',negpull:'4-6',climber:'30s',burpee:'8-12',jack:'30s',knees:'30s',jsquat:'10-15',
  decl:'6-10',diam:'6-10',crunch:'15-20',twist:'20',chaise:'30-45s',sumo:'15-20',skater:'30s',talons:'30s',
  m_dev:'8-12',m_tir:'8-12',m_fly:'12-15',m_press:'10-12',m_curl:'10-12',m_tri:'12-15',m_row:'10-12',
- m_lat:'15',m_leg:'12-15',m_ham:'12-15',m_glute:'12-15/j',m_ep:'10-12',m_calf:'15-20',m_boxe:'2 min',w_arm:'30s',w_wrist:'30s',w_hip:'30s',w_ankle:'30s'};
+ m_lat:'15',m_leg:'12-15',m_ham:'12-15',m_glute:'12-15/j',m_ep:'10-12',m_calf:'15-20',m_boxe:'2 min',m_pull:'12-15',m_crunchp:'15-20',m_obliq:'12-15/côté',m_facepull:'15-20',m_uprow:'10-12',m_hipab:'12-15/j',w_arm:'30s',w_wrist:'30s',w_hip:'30s',w_ankle:'30s'};
 const FAMNAME={push:'Poussée',pull:'Tirage',legs:'Jambes',core:'Gainage',cardio:'Cardio'};
+
+/* ================= ZONES MUSCULAIRES (musculation ciblée) ================= */
+const ZONEMETA={
+ pecs:{n:'Pectoraux',c:'#4D8CFF'}, dos:{n:'Dos',c:'#7C5CFF'}, epaules:{n:'Épaules',c:'#FF8A3D'},
+ biceps:{n:'Biceps',c:'#FFB020'}, triceps:{n:'Triceps',c:'#FF6F91'}, abdos:{n:'Abdominaux',c:'#B48CF2'},
+ jambes:{n:'Jambes',c:'#8FD14F'}, fessiers:{n:'Fessiers',c:'#4FD1C5'}, mollets:{n:'Mollets',c:'#4FC8F0'},
+ cardio:{n:'Cardio',c:'#FF5C29'}
+};
+const ZONEOF={
+ pompe:'pecs',pompe_inc:'pecs',decl:'pecs',diam:'triceps',pike:'epaules',dips:'triceps',
+ squat:'jambes',fente:'jambes',bulg:'jambes',sumo:'jambes',jsquat:'jambes',chaise:'jambes',
+ bridge:'fessiers',planche:'abdos',side:'abdos',hollow:'abdos',crunch:'abdos',twist:'abdos',
+ superman:'dos',row:'dos',negpull:'dos',climber:'cardio',burpee:'cardio',jack:'cardio',knees:'cardio',
+ skater:'cardio',talons:'cardio',
+ m_dev:'pecs',m_fly:'pecs',m_tir:'dos',m_row:'dos',m_pull:'dos',
+ m_lat:'epaules',m_ep:'epaules',m_facepull:'epaules',m_uprow:'epaules',
+ m_curl:'biceps',m_tri:'triceps',
+ m_press:'jambes',m_leg:'jambes',m_ham:'jambes',
+ m_glute:'fessiers',m_hipab:'fessiers',m_calf:'mollets',
+ m_crunchp:'abdos',m_obliq:'abdos',m_boxe:'cardio'
+};
+const MZONES=Object.keys(ZONEMETA);
+function zoneOf(k){ return ZONEOF[k]||null; }
+function zoneExs(z){ return Object.keys(ZONEOF).filter(k=>ZONEOF[k]===z && EX[k]); }
+let muscuZone=null;
+function selectZone(z){ muscuZone=(muscuZone===z?null:z); renderTrain(); }
+
+function zoneSession(z){
+  const list=zoneExs(z).slice().sort((a,b)=>(discOf(b)==='muscu')-(discOf(a)==='muscu'));
+  const picked=list.slice(0,Math.min(5,list.length));
+  const sets = (z==='abdos'||z==='cardio'||z==='mollets')?3:4;
+  return {id:'Z', title:'Séance ciblée · '+ZONEMETA[z].n, hint:'Choisie par toi',
+    items:picked.map(k=>({ex:k, sets:sets, reps:DEFREPS[k]||'10-12'}))};
+}
 function discOf(k){ return (EX[k]&&EX[k].disc)||'calis'; }
 function famOf(k){ const c=EX[k].cat;
   if(c.indexOf('Machine')===0){
@@ -1295,6 +1429,7 @@ function famOf(k){ const c=EX[k].cat;
     if(c.indexOf('Jambes')>0) return 'legs';
     if(c.indexOf('Épaules')>0) return 'push';
     if(c.indexOf('Bras')>0) return 'push';
+    if(c.indexOf('Gainage')>0) return 'core';
     return 'cardio'; }
   if(c.indexOf('Poussée')===0) return 'push';
   if(c.indexOf('Tirage')===0) return 'pull';
@@ -1455,11 +1590,17 @@ function analyze(r){
   if(r.hr&&r.hr.length>1){
     const step=r.dur/r.hr.length/60;
     r.hr.forEach(h=>{ zmin[zoneIdx(h)]+=step; });
-  } else if(r.hrAvg){ zmin[zoneIdx(r.hrAvg)] = r.dur/60; }
+  } else if(r.hrAvg){
+    /* estimation : une sortie n'est jamais à FC constante — on répartit autour de la moyenne */
+    const z=zoneIdx(r.hrAvg), m=r.dur/60;
+    zmin[z]+=m*0.56;
+    if(z>0) zmin[z-1]+=m*0.26; else zmin[z]+=m*0.26;
+    if(z<4) zmin[z+1]+=m*0.18; else zmin[z]+=m*0.18;
+  }
   const effort=Math.round(zmin.reduce((a,m,i)=>a+m*ZONES[i].f,0));
   const tot=zmin.reduce((a,b)=>a+b,0)||1;
   const domIdx=zmin.indexOf(Math.max(...zmin));
-  return {zmin:zmin, effort:effort, domIdx:domIdx, domPct:Math.round(zmin[domIdx]/tot*100), pace:paceOf(r)};
+  return {zmin:zmin, effort:effort, domIdx:domIdx, domPct:Math.round(zmin[domIdx]/tot*100), pace:paceOf(r), est:!(r.hr&&r.hr.length>1)&&!!r.hrAvg};
 }
 function runs(sport){ return state.history.filter(x=>x.type==='run'&&(!sport||(x.sport||'run')===sport)); }
 function bestEfforts(){
@@ -1609,9 +1750,40 @@ function volumeSVG(){
 
 /* ================= SUIVI GPS TEMPS RÉEL ================= */
 let trk=null, trkT=null, geoW=null;
+/* --- sauvegarde continue : rien n'est perdu si iOS suspend l'app --- */
+function persistTrk(){
+  try{ if(trk) localStorage.setItem('forge:trk', JSON.stringify(trk));
+       else localStorage.removeItem('forge:trk'); }catch(e){}
+}
+function resumeTrk(){
+  let s=null;
+  try{ s=JSON.parse(localStorage.getItem('forge:trk')||'null'); }catch(e){}
+  if(!s||!s.t0) return false;
+  const ageH=(Date.now()-s.t0)/3600000;
+  if(ageH>12){ try{ localStorage.removeItem('forge:trk'); }catch(e){} return false; }
+  trk=s; trk.resumed=true;
+  trk.dur=(Date.now()-trk.t0)/1000-(trk.pausedMs||0)/1000;
+  grabWake();
+  if(navigator.geolocation) geoW=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
+  clearInterval(trkT); trkT=setInterval(()=>{ if(trk&&!trk.paused){ trk.dur=(Date.now()-trk.t0)/1000-(trk.pausedMs||0)/1000; renderTrack(); } },1000);
+  return true;
+}
+/* reprise automatique du suivi GPS quand l'app revient au premier plan */
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){ persistTrk(); return; }
+  if(trk){
+    trk.dur=(Date.now()-trk.t0)/1000-(trk.pausedMs||0)/1000;
+    if(geoW===null&&navigator.geolocation) geoW=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
+    if(trk.gapAt){ trk.gapMsg=true; }
+    renderTrack();
+  }
+});
+window.addEventListener('pagehide',persistTrk);
+window.addEventListener('beforeunload',persistTrk);
 function startTrack(sport){
   if(!navigator.geolocation){ toast('GPS indisponible sur cet appareil'); return; }
   trk={sport:sport, t0:Date.now(), dur:0, dist:0, track:[], splits:[], lastKm:0, lastT:0, paused:false, acc:null, hr:[], live:null};
+  persistTrk();
   ensureAudio(); grabWake();
   speak(SPORTS[sport].n+' démarrée. Bonne séance !',true);
   geoW=navigator.geolocation.watchPosition(onPos,onGeoErr,{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
@@ -1632,18 +1804,19 @@ function onPos(p){
     trk.dist+=d;
   }
   trk.track.push(pt);
+  if(trk.track.length%5===0) persistTrk();
   const km=Math.floor(trk.dist/1000);
   if(km>trk.lastKm){
     const t=pt.t-trk.lastT;
     trk.splits.push({km:km, t:t, hr:trk.hrNow||null});
-    trk.lastKm=km; trk.lastT=pt.t;
+    trk.lastKm=km; trk.lastT=pt.t; persistTrk();
     beep(990,.25); vib(180);
     speak('Kilomètre '+km+'. '+fmtPace(t).replace(':',' minutes ')+' au kilomètre.',true);
   }
   renderTrack();
 }
 function pauseTrack(){
-  trk.paused=!trk.paused;
+  trk.paused=!trk.paused; persistTrk();
   if(trk.paused){ trk.pStart=Date.now(); speak('Pause.',true); }
   else { trk.pausedMs=(trk.pausedMs||0)+(Date.now()-trk.pStart); speak('On repart.',true); }
   renderTrack();
@@ -1658,7 +1831,7 @@ function stopTrack(){
   if(trk.hr&&trk.hr.length){ r.hr=downsampleN(trk.hr,300); r.hrAvg=Math.round(trk.hr.reduce((a,b)=>a+b,0)/trk.hr.length); r.hrMax=Math.max(...trk.hr); }
   state.history.unshift(r);
   state.history.sort((a,b)=>new Date(b.date)-new Date(a.date));
-  save(); trk=null; shutUp();
+  save(); trk=null; persistTrk(); shutUp();
   speak('Activité enregistrée. Bravo !',true);
   tab='train'; disc='run'; buildTabs(); render();
   setTimeout(()=>openRun(0),350);
@@ -1666,7 +1839,7 @@ function stopTrack(){
 function cancelTrack(){
   if(!confirm('Abandonner cette activité sans l\'enregistrer ?')) return;
   if(geoW!==null){ navigator.geolocation.clearWatch(geoW); geoW=null; }
-  clearInterval(trkT); releaseWake(); shutUp(); trk=null; render();
+  clearInterval(trkT); releaseWake(); shutUp(); trk=null; persistTrk(); render();
 }
 function downsample(a,n){ if(a.length<=n) return a; const st=a.length/n, o=[];
   for(let i=0;i<n;i++) o.push(a[Math.floor(i*st)]); o.push(a[a.length-1]); return o; }
@@ -1678,6 +1851,7 @@ function renderTrack(){
   let h='<div class="row" style="margin-bottom:10px"><button class="btn dim" onclick="cancelTrack()">✕</button>'
    +'<div class="grow" style="text-align:right"><span class="eyebrow" style="margin:0">'+sp.ic+' '+sp.n+(trk.acc?' · GPS ±'+trk.acc+' m':' · recherche GPS…')+'</span></div></div>';
   if(trk.err) h+='<div class="card" style="border-color:var(--danger)"><p class="muted" style="font-size:13px">⚠️ '+trk.err+'</p></div>';
+  if(trk.resumed&&!trk.seen){ h+='<div class="card" style="border-color:var(--volt)"><p class="muted" style="font-size:13px">↩️ Activité reprise. Le chronomètre a continué, mais les kilomètres parcourus écran éteint n\'ont pas pu être mesurés — <b>garde l\'écran allumé</b> ou utilise ta montre puis importe le GPX.</p><button class="btn dim sm wide" style="margin-top:8px" onclick="trk.seen=1;renderTrack()">J\'ai compris</button></div>'; }
   h+='<div class="hero" style="text-align:center;padding:22px 16px">'
    +'<div class="eyebrow" style="justify-content:center">Distance</div>'
    +'<div style="font-family:var(--disp);font-weight:800;font-size:62px;color:var(--run);line-height:1">'+d.toFixed(2)+'<span style="font-size:22px;color:var(--ink2)"> km</span></div>'
@@ -1728,13 +1902,25 @@ function openHRHelp(){
 function pickFile(){ document.getElementById('gpxin').click(); }
 function onFile(inp){
   const f=inp.files&&inp.files[0]; if(!f) return;
+  if(/\.zip$/i.test(f.name)){ importErr('Ce fichier est une archive ZIP','Décompresse-la d\'abord (appui long sur le fichier dans l\'app Fichiers → Décompresser), puis importe le .gpx qu\'elle contient.'); inp.value=''; return; }
+  if(/\.(fit|gz)$/i.test(f.name)){ importErr('Format '+f.name.split('.').pop().toUpperCase()+' non pris en charge','Dans Strava, choisis « Exporter GPX » plutôt que « Exporter les données d\'origine ».'); inp.value=''; return; }
   const rd=new FileReader();
-  rd.onload=()=>{ try{ importTrace(rd.result, f.name); }catch(e){ toast('Fichier illisible'); } inp.value=''; };
+  rd.onerror=()=>{ importErr('Lecture impossible','Le fichier n\'a pas pu être ouvert. Réessaie en le copiant d\'abord dans l\'app Fichiers (Sur mon iPhone).'); inp.value=''; };
+  rd.onload=()=>{ try{ importTrace(rd.result, f.name); }
+    catch(e){ importErr('Fichier non reconnu', 'FORGE attend un fichier GPX ou TCX. Détail technique : '+e.message); }
+    inp.value=''; };
   rd.readAsText(f);
+}
+function importErr(t,d){
+  document.getElementById('sheet').innerHTML='<div class="handle"></div><h2>⚠️ '+t+'</h2>'
+   +'<p class="muted" style="margin:8px 0 14px">'+d+'</p>'
+   +'<button class="btn ghost wide" onclick="openImportHelp()">Voir la marche à suivre</button>'
+   +'<button class="btn dim wide" style="margin-top:10px" onclick="closeModal()">Fermer</button>';
+  document.getElementById('modal').classList.add('on');
 }
 function importTrace(txt,name){
   const doc=new DOMParser().parseFromString(txt,'application/xml');
-  if(doc.querySelector('parsererror')){ toast('Fichier XML invalide'); return; }
+  if(doc.querySelector&&doc.querySelector('parsererror')){ importErr('Fichier XML invalide','Le fichier semble corrompu ou incomplet. Réessaie l\'export depuis Strava.'); return; }
   let pts=[];
   const trkpt=doc.getElementsByTagName('trkpt');
   if(trkpt.length){
@@ -1760,7 +1946,7 @@ function importTrace(txt,name){
     }
   }
   pts=pts.filter(p=>isFinite(p.lat)&&isFinite(p.lon));
-  if(pts.length<2){ toast('Aucune trace GPS trouvée dans ce fichier'); return; }
+  if(pts.length<2){ importErr('Aucune trace GPS dans ce fichier','Le fichier ne contient pas de points <trkpt> (GPX) ni <Trackpoint> (TCX). Si tu as exporté depuis Strava, choisis bien « Exporter GPX ».'); return; }
   const t0=pts[0].ms||0;
   let dist=0, splits=[], lastKm=0, lastT=0, track=[], hrs=[];
   pts.forEach((p,i)=>{
@@ -1803,7 +1989,7 @@ function openRun(i){
   h+='<div class="sugg"><h3>🧠 Analyse du coach</h3><p style="font-size:14px;color:var(--ink);font-weight:600;margin-bottom:8px">'+c.title+'</p>'
    +c.body.map(p=>'<p style="font-size:13px;margin-bottom:7px">'+p+'</p>').join('')+'</div>';
   if(hasHR){
-    h+='<div class="card"><h3>Zones de fréquence cardiaque</h3><p class="muted" style="font-size:11.5px;margin-bottom:8px">Méthode Karvonen · FC max '+prof().hrMax+' · FC repos '+prof().hrRest+' bpm</p>'+zonesSVG(a)
+    h+='<div class="card"><h3>Zones de fréquence cardiaque'+(a.est?' <span class="badge-sun">estimé</span>':'')+'</h3><p class="muted" style="font-size:11.5px;margin-bottom:8px">Méthode Karvonen · FC max '+prof().hrMax+' · FC repos '+prof().hrRest+' bpm'+(a.est?' · répartition estimée à partir de la FC moyenne — importe le GPX pour la courbe réelle':'')+'</p>'+zonesSVG(a)
      +'<p class="muted" style="font-size:12px;margin-top:8px">'+ZONES[a.domIdx].d+'</p></div>';
   } else {
     h+='<div class="card"><h3>❤️ Pas de données cardio</h3><p class="muted">Importe le GPX/TCX de cette sortie, ou saisis ta FC moyenne pour débloquer les zones et l\'effort relatif.</p>'
@@ -1830,6 +2016,73 @@ function delRun(i){
   state.history=state.history.filter(x=>x!==R);
   save(); closeModal(); renderTrain();
 }
+/* ---- saisie détaillée d'une activité ---- */
+function openManual(){
+  const d=new Date();
+  const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  let h='<div class="handle"></div><h2>✍️ Saisir une sortie</h2>'
+   +'<p class="muted" style="margin-bottom:12px">Sans fichier : recopie les chiffres de ta montre ou de Strava. Avec la FC moyenne, tu obtiens l\'effort relatif, la zone dominante et l\'analyse du coach.</p>'
+   +'<div class="hfield"><label>Sport</label><div class="row">'
+   +'<button class="btn sun sm grow" id="ms_run" onclick="mSport(\'run\')">🏃 Course</button>'
+   +'<button class="btn dim sm grow" id="ms_hike" onclick="mSport(\'hike\')">🥾 Randonnée</button></div></div>'
+   +'<div class="hfield"><label>Date</label><input id="m_date" type="date" value="'+iso+'"></div>'
+   +'<div class="hnum" style="grid-template-columns:1fr 1fr">'
+   +'<div class="hfield"><label>Distance (km)</label><input id="m_km" type="number" inputmode="decimal" step="0.01" placeholder="7.49"></div>'
+   +'<div class="hfield"><label>Durée (min)</label><input id="m_min" type="number" inputmode="numeric" placeholder="41"></div></div>'
+   +'<div class="hnum" style="grid-template-columns:1fr 1fr">'
+   +'<div class="hfield"><label>FC moyenne (bpm)</label><input id="m_hr" type="number" inputmode="numeric" placeholder="160"></div>'
+   +'<div class="hfield"><label>FC max (bpm)</label><input id="m_hrx" type="number" inputmode="numeric" placeholder="172"></div></div>'
+   +'<div class="row" style="margin-top:6px"><button class="btn sun grow" onclick="saveManual()">Enregistrer et analyser</button>'
+   +'<button class="btn dim" onclick="closeModal()">Annuler</button></div>';
+  document.getElementById('sheet').innerHTML=h;
+  document.getElementById('modal').classList.add('on');
+  window._msport='run';
+}
+function mSport(s){ window._msport=s;
+  const a=document.getElementById('ms_run'), b=document.getElementById('ms_hike');
+  if(a&&b){ a.className='btn '+(s==='run'?'sun':'dim')+' sm grow'; b.className='btn '+(s==='hike'?'sun':'dim')+' sm grow'; } }
+function saveManual(){
+  const g=id=>{const e=document.getElementById(id); return e?e.value:'';};
+  const km=parseFloat(String(g('m_km')).replace(',','.')), mn=parseInt(g('m_min'));
+  if(!(km>0)||!(mn>0)){ toast('Indique au moins la distance et la durée'); return; }
+  const sp=window._msport||'run';
+  const dt=g('m_date')? new Date(g('m_date')+'T12:00:00') : new Date();
+  const dur=mn*60, dist=Math.round(km*1000);
+  const r={date:dt.toISOString(), type:'run', sport:sp, name:SPORTS[sp].n, dist:dist, dur:dur,
+    mins:mn, km:Math.round(km*10)/10, splits:[], src:'manuel'};
+  /* splits reconstitués à allure régulière pour l'affichage et les records */
+  const nk=Math.floor(km), pk=dur/km;
+  for(let i=1;i<=nk;i++) r.splits.push({km:i, t:Math.round(pk), hr:null});
+  const hr=parseInt(g('m_hr')), hx=parseInt(g('m_hrx'));
+  if(hr>60&&hr<230){ r.hrAvg=hr; if(hx>hr&&hx<240) r.hrMax=hx; }
+  state.history.unshift(r);
+  state.history.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  save(); closeModal(); renderTrain();
+  setTimeout(()=>openRun(runs().findIndex(x=>x.date===r.date)),250);
+  toast('Sortie enregistrée '+(r.hrAvg?'avec analyse cardio ❤️':''));
+}
+
+/* ---- guide d'import ---- */
+function openImportHelp(){
+  let h='<div class="handle"></div><h2>📥 Récupérer tes sorties</h2>'
+   +'<div class="card" style="border-color:rgba(216,255,61,.4)"><h3>⭐ Depuis ta montre Fit 100 (recommandé)</h3>'
+   +'<p class="muted">Decathlon Hub synchronise automatiquement tes séances vers Strava — une fois activé, tu n\'as plus rien à faire.</p>'
+   +'<ol class="steps" style="color:var(--ink2)">'
+   +'<li>Dans <b>Decathlon Hub</b> : réglages → <b>Applications connectées</b> → <b>Strava</b> → autorise la connexion.</li>'
+   +'<li>Tes prochaines courses (trace, allure, cadence, zones FC) apparaissent seules dans Strava.</li>'
+   +'<li>Puis suis « Depuis Strava » ci-dessous pour les récupérer ici.</li></ol></div>'
+   +'<div class="card"><h3>Depuis Strava (iPhone)</h3><p class="muted">L\'application Strava ne propose pas l\'export GPX : il faut passer par le site.</p>'
+   +'<ol class="steps" style="color:var(--ink2)"><li>Ouvre <b>strava.com</b> dans Safari et connecte-toi.</li>'
+   +'<li>Va sur l\'activité concernée.</li><li>Menu <b>«&nbsp;...&nbsp;»</b> (en haut à droite) → <b>Exporter GPX</b>.</li>'
+   +'<li>Safari propose « Télécharger » → le fichier arrive dans <b>Fichiers → Téléchargements</b>.</li>'
+   +'<li>Reviens ici, appuie sur <b>Importer</b> et sélectionne-le.</li></ol></div>'
+   +'<div class="card"><h3>Sans fichier</h3><p class="muted">Le plus rapide en attendant : recopie distance, durée et FC moyenne affichées dans Decathlon Hub ou Strava. Tu obtiens l\'effort relatif, la zone dominante et l\'analyse du coach — seule la trace GPS manquera.</p>'
+   +'<button class="btn sun wide" style="margin-top:10px" onclick="closeModal();setTimeout(openManual,200)">✍️ Saisir la sortie à la main</button></div>'
+   +'<button class="btn dim wide" onclick="closeModal()">Fermer</button>';
+  document.getElementById('sheet').innerHTML=h;
+  document.getElementById('modal').classList.add('on');
+}
+
 /* ---- profil cardio ---- */
 function openProfile(){
   const p=prof();
@@ -1867,8 +2120,14 @@ function buildTabs(){
     '<button data-tab="'+t[0]+'" class="'+(t[0]===tab?'on':'')+'">'+ICO[t[0]]+t[1]+'</button>').join('');
   document.querySelectorAll('.tabbar button').forEach(b=>b.addEventListener('click',()=>{
     if(trk){ toast('Activité en cours — termine ou abandonne d\'abord'); buildTabs(); return; }
-    tab=b.dataset.tab; run=null; editing=false; clearInterval(timerH);
-    hrun=null; clearInterval(hTimer); releaseWake(); stopMetro(); shutUp();
+    if(run||hrun){
+      const k = run?run.s.items[run.idx].ex:hrun.ph[hrun.pi].ex;
+      if(k&&EX[k]) openEx(k);
+      toast('Ta séance continue en arrière-plan — bouton ✕ pour la quitter');
+      return;
+    }
+    tab=b.dataset.tab; editing=false; clearInterval(timerH);
+    clearInterval(hTimer);
     buildTabs(); render();
   }));
 }
@@ -1954,12 +2213,16 @@ function runBody(){
    +'<div class="eyebrow" style="color:#7FEFE0">Course à pied · Randonnée</div>'
    +'<h2>Chaque sortie,<br><span style="color:var(--run)">analysée</span></h2>'
    +'<p>Suivi GPS en direct, kilomètres automatiques, zones cardiaques et analyse de coach après chaque séance.</p></div>';
-  h+='<div class="grid2" style="margin-bottom:10px">'
+  h+='<div class="grid2" style="margin-bottom:8px">'
    +'<button class="btn sun xl" onclick="startTrack(\'run\')">🏃 Démarrer une course</button>'
-   +'<button class="btn dim xl" onclick="startTrack(\'hike\')">🥾 Randonnée</button></div>';
-  h+='<div class="grid2" style="margin-bottom:14px">'
+   +'<button class="btn dim xl" onclick="startTrack(\'hike\')">🥾 Randonnée</button></div>'
+   +'<p class="muted" style="font-size:11.5px;margin:0 2px 14px">📱 Suivi GPS : garde l\'écran allumé (iOS coupe la localisation d\'une app web dès l\'écran éteint). Pour une sortie longue, lance plutôt ta montre et importe le GPX ensuite — tu récupères aussi la FC.</p>';
+  h+='<div class="grid2" style="margin-bottom:8px">'
    +'<button class="btn ghost" onclick="pickFile()">📥 Importer GPX / TCX</button>'
-   +'<button class="btn ghost" onclick="openProfile()">❤️ Profil cardio</button></div>';
+   +'<button class="btn ghost" onclick="openManual()">✍️ Saisir une sortie</button></div>'
+   +'<div class="grid2" style="margin-bottom:14px">'
+   +'<button class="btn dim sm" onclick="openImportHelp()">❓ Comment importer</button>'
+   +'<button class="btn dim sm" onclick="openProfile()">❤️ Profil cardio</button></div>';
   /* semaine */
   h+='<div class="kpi">'
    +'<div><div class="v" style="color:var(--run)">'+(Math.round(wkm*10)/10)+'</div><div class="l">km cette sem.</div></div>'
@@ -1994,6 +2257,7 @@ function runBody(){
      +'<span class="grow" style="font-size:12px;color:var(--muted)">'+d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+' · '+fmtDur(x.dur||x.mins*60)+'</span>'
      +(x.hrAvg?'<span class="tag"><i style="background:'+hrLimits()[zoneIdx(x.hrAvg)].c+'"></i>'+x.hrAvg+' bpm</span>':'')
      +(a.effort?'<span class="tag">Effort '+a.effort+'</span>':'')
+     +'<span class="badge-sun">Détail →</span>'
      +'</div></div>';
   });
   h+='<div class="card"><h3>💡 Renforcement du coureur</h3><p class="muted">Les kilomètres ne suffisent pas : chaîne postérieure, travail unilatéral et gainage anti-rotation réduisent le risque de blessure et améliorent l\'économie de course. Bascule sur l\'objectif « Performances course à pied » pour un programme dédié.</p>'
@@ -2002,23 +2266,48 @@ function runBody(){
 }
 function muscuBody(){
   const isM=state.objective==='muscu';
+  const mCount=Object.keys(EX).filter(k=>discOf(k)==='muscu').length;
   let h='<div class="hero" style="background:linear-gradient(150deg,#101C33,#0E1520 60%,#0A0E14)">'
    +'<div class="eyebrow" style="color:#9CC0FF">Musculation · Station HG 90</div>'
    +'<h2>Charge guidée,<br><span style="color:var(--muscu)">progression réelle</span></h2>'
-   +'<p>14 exercices calés sur les postes de ta station Domyos HG 90 Boxe : développé assis, butterfly, tirage vertical, poulie basse, presse à jambes, sangle de cheville et sac de frappe. Charge max 90 kg.</p></div>';
-  if(!isM) h+='<div class="card"><h3>Activer le programme complet</h3><p class="muted">Le programme Musculation HG 90 (3 séances : poussée, jambes, tirage) devient ton programme principal si tu bascules sur cet objectif. Tu peux aussi piocher les exercices ci-dessous dans n\'importe quelle séance.</p><button class="btn sun wide" style="margin-top:10px" onclick="setObj(\'muscu\')">Passer en objectif Musculation</button></div>';
-  else h+=progBody(true);
-  if(!isM){
-    h+='<div class="eyebrow" style="margin:14px 2px 8px">Les 3 séances types</div>';
-    PROGS.muscu.sessions.forEach(s=>{
-      h+='<div class="sess"><div class="head"><h3>'+s.title+'</h3><span class="badge-sun">'+s.hint+'</span></div>';
-      s.items.forEach(it=>{ const e=EX[it.ex];
-        h+='<div class="exline" style="border-left:3px solid '+catColor(e.cat)+'" onclick="openEx(\''+it.ex+'\')"><div class="thumb">'+figSVG(it.ex,68)+'</div>'
-         +'<div class="grow"><div class="nm">'+e.n+'</div><div class="sub">'+e.ms+'</div></div><span class="pill">'+it.sets+'×'+scaleReps(it.reps)+'</span></div>'; });
-      h+='<div class="foot"><button class="btn sun wide" onclick="startSession(PROGS.muscu.sessions.find(z=>z.id===\''+s.id+'\'))">▶ Lancer la séance '+s.id+'</button></div></div>';
+   +'<p>'+mCount+' exercices calés sur les postes de ta station Domyos HG 90 Boxe : développé assis, butterfly, tirage vertical, poulie haute/basse, presse à jambes, sangle de cheville et sac de frappe. Charge max 90 kg.</p></div>';
+
+  /* ---- sélecteur de zone musculaire ---- */
+  h+='<div class="eyebrow" style="margin:2px 2px 8px">Muscler une zone précise</div>';
+  h+='<div class="row" style="flex-wrap:wrap;gap:6px;margin-bottom:12px">';
+  MZONES.forEach(z=>{
+    const on=muscuZone===z, n=zoneExs(z).length;
+    h+='<button class="btn '+(on?'sun':'dim')+' sm" style="'+(on?'':'border-left:3px solid '+ZONEMETA[z].c)+'" onclick="selectZone(\''+z+'\')">'+ZONEMETA[z].n+' <span style="opacity:.65">'+n+'</span></button>';
+  });
+  h+='</div>';
+
+  if(muscuZone){
+    const z=muscuZone, list=zoneExs(z);
+    h+='<div class="card" style="border-color:'+ZONEMETA[z].c+'55"><div class="row"><div class="grow"><div class="eyebrow" style="margin-bottom:2px;color:'+ZONEMETA[z].c+'">Zone sélectionnée</div><h3>'+ZONEMETA[z].n+' · '+list.length+' exercices</h3></div>'
+      +'<button class="btn ghost sm" onclick="selectZone(\''+z+'\')">✕</button></div>'
+      +'<button class="btn sun wide" style="margin-top:10px" onclick="startSession(zoneSession(\''+z+'\'))">▶ Lancer une séance '+ZONEMETA[z].n.toLowerCase()+'</button></div>';
+    h+='<div class="mgrid" style="margin-bottom:14px">';
+    list.forEach(k=>{
+      const e=EX[k];
+      h+='<div class="mcard" onclick="openEx(\''+k+'\')"><span class="ill">'+figSVG(k)+'</span>'
+        +'<div class="cap"><div class="nm">'+e.n+'</div><div class="ms">'+(discOf(k)==='muscu'?'🏋️ Machine':'Poids du corps')+'</div></div></div>';
     });
+    h+='</div>';
+  } else {
+    if(!isM) h+='<div class="card"><h3>Activer le programme complet</h3><p class="muted">Le programme Musculation HG 90 (3 séances : poussée, jambes, tirage) devient ton programme principal si tu bascules sur cet objectif. Tu peux aussi piocher les exercices par zone ci-dessus, dans n\'importe quel objectif.</p><button class="btn sun wide" style="margin-top:10px" onclick="setObj(\'muscu\')">Passer en objectif Musculation</button></div>';
+    else h+=progBody(true);
+    if(!isM){
+      h+='<div class="eyebrow" style="margin:14px 2px 8px">Les 3 séances types</div>';
+      PROGS.muscu.sessions.forEach(s=>{
+        h+='<div class="sess"><div class="head"><h3>'+s.title+'</h3><span class="badge-sun">'+s.hint+'</span></div>';
+        s.items.forEach(it=>{ const e=EX[it.ex];
+          h+='<div class="exline" style="border-left:3px solid '+catColor(e.cat)+'" onclick="openEx(\''+it.ex+'\')"><div class="thumb">'+figSVG(it.ex,68)+'</div>'
+           +'<div class="grow"><div class="nm">'+e.n+'</div><div class="sub">'+e.ms+'</div></div><span class="pill">'+it.sets+'×'+scaleReps(it.reps)+'</span></div>'; });
+        h+='<div class="foot"><button class="btn sun wide" onclick="startSession(PROGS.muscu.sessions.find(z=>z.id===\''+s.id+'\'))">▶ Lancer la séance '+s.id+'</button></div></div>';
+      });
+    }
+    h+='<div class="card"><h3>💡 Charges : comment progresser</h3><p class="muted">Choisis la charge qui te fait finir la dernière répétition <b>difficilement mais proprement</b> (1 à 2 reps en réserve). Quand tu atteins le haut de fourchette sur toutes les séries deux séances de suite, monte d\'un cran de plaques (5 kg). Note tes charges dans le champ des séries en mode édition.</p></div>';
   }
-  h+='<div class="card"><h3>💡 Charges : comment progresser</h3><p class="muted">Choisis la charge qui te fait finir la dernière répétition <b>difficilement mais proprement</b> (1 à 2 reps en réserve). Quand tu atteins le haut de fourchette sur toutes les séries deux séances de suite, monte d\'un cran de plaques (5 kg). Note tes charges dans le champ des séries en mode édition.</p></div>';
   return h;
 }
 
@@ -2029,6 +2318,7 @@ function renderCours(){
   let h = '<div class="card"><div class="eyebrow">Réglages</div><h3 style="margin-bottom:10px">Ton profil d\'entraînement</h3>'
     + '<div class="row" style="gap:8px"><button class="btn ghost sm grow" onclick="openObj()">🎯 '+OBJ[state.objective].t+'</button>'
     + '<button class="btn ghost sm grow" onclick="openDiff()">'+DIFF[state.diff].ic+' '+DIFF[state.diff].t+'</button></div>'
+    + '<button class="btn ghost sm wide" style="margin-top:8px" onclick="openRestPref()">'+RESTPREF[state.restPref||'normal'].ic+' Repos : '+RESTPREF[state.restPref||'normal'].t+' ('+restSecs()+' s)</button>'
     + '<button class="btn ghost sm wide" style="margin-top:8px" onclick="openProfile()">❤️ Profil cardio · FC max '+prof().hrMax+' bpm</button>'
     + '<button class="btn dim sm wide" style="margin-top:8px" onclick="toggleVoice()">'+(state.voice?'🔊 Coach vocal activé':'🔇 Coach vocal coupé')+'</button></div>';
   h += '<div class="hero"><div class="eyebrow">Cours</div>'
@@ -2122,7 +2412,8 @@ function progBody(embed){
     + '<p>3 séances / semaine · repos '+restSecs()+' s entre séries · échauffement 5 min.'
     + (state.history.length?'<br>Prochaine séance conseillée : <b style="color:var(--sun)">Séance '+nx+'</b>':'')+'</p>'
     + '<div style="margin-top:10px" class="row"><button class="btn sun sm" onclick="openObj()">🎯 '+OBJ[state.objective].t+'</button>'
-    + '<button class="btn ghost sm" onclick="openDiff()">'+DIFF[state.diff].ic+' '+DIFF[state.diff].t+'</button></div></div>';
+    + '<button class="btn ghost sm" onclick="openDiff()">'+DIFF[state.diff].ic+' '+DIFF[state.diff].t+'</button>'
+    + '<button class="btn ghost sm" onclick="openRestPref()">'+RESTPREF[state.restPref||'normal'].ic+' '+restSecs()+'s</button></div></div>';
   h += '<div class="row" style="margin-bottom:12px"><button class="btn dim grow" onclick="startWarm()">🔥 Échauffement · 4 min</button>'
     + '<button class="btn ghost grow" onclick="openGen()">🎲 Séance du jour</button></div>';
 
@@ -2189,6 +2480,7 @@ function renderRun(){
   let h='<div>'
    +'<div class="row"><button class="btn dim" onclick="quitRun()">✕ Quitter</button>'
    +'<button class="btn '+(state.voice?'sun':'dim')+' sm" onclick="toggleVoice()" aria-label="coach vocal">'+(state.voice?'🔊':'🔇')+'</button>'
+   +'<button class="btn ghost sm" onclick="openEx(\''+it.ex+'\')">📖 Fiche</button>'
    +'<div class="grow" style="text-align:right"><span class="eyebrow">'+s.title+'</span></div></div>'
    +'<div class="prog"><i style="width:'+Math.round((run.idx)/total*100)+'%"></i></div>'
    +'<div class="muted" style="font-size:11px;text-transform:uppercase;letter-spacing:.1em">Exercice '+(run.idx+1)+' / '+total+'</div>'
@@ -2197,8 +2489,9 @@ function renderRun(){
    +'<div class="runill">'+figSVG(it.ex,600)+'</div>';
   const ci=e.chain.indexOf(e.n), reg=ci>0?e.chain[ci-1]:null;
   if(run.rest>0){
-    h+='<div class="eyebrow" style="text-align:center">Repos</div>'+ring(run.rest,rest,'#FFD400',150)
-      +'<button class="btn ghost wide" onclick="skipRest()">Passer le repos</button>';
+    h+='<div class="eyebrow" style="text-align:center">Repos</div>'+ring(run.rest,rest,'#D8FF3D',150)
+      +'<div class="row"><button class="btn dim grow" onclick="trimRest(15)">−15 s</button>'
+      +'<button class="btn ghost grow" onclick="skipRest()">Passer</button></div>';
   } else {
     h+='<div class="eyebrow">Valide chaque série</div><div class="setrow">';
     run.done[run.idx].forEach((d,k)=>{
@@ -2277,6 +2570,7 @@ function startRest(sec){ stopMetro(); clearInterval(setT); run.st=null; run.rest
     renderRun(); },1000);
   renderRun(); }
 function skipRest(){ clearInterval(timerH); run.rest=0; renderRun(); }
+function trimRest(sec){ run.rest=Math.max(1,run.rest-sec); renderRun(); }
 function moveRun(d){ clearInterval(timerH); clearInterval(setT); if(run) run.st=null; stopMetro(); run.rest=0; run.idx=Math.max(0,Math.min(run.s.items.length-1,run.idx+d)); M.scrollTop=0; renderRun(); sayEx(); }
 function quitRun(){ if(confirm('Quitter sans enregistrer la séance ?')){ clearInterval(timerH); clearInterval(setT); stopMetro(); shutUp(); run=null; render(); } }
 function finishRun(){
@@ -2342,8 +2636,37 @@ function beep(freq,dur,vol){
     o.start(t); o.stop(t+dur+.05);
   }catch(e){}
 }
-async function grabWake(){ try{ if('wakeLock' in navigator) wlock=await navigator.wakeLock.request('screen'); }catch(e){} }
-function releaseWake(){ try{ if(wlock){ wlock.release(); wlock=null; } }catch(e){} }
+function anySessionActive(){ return !!(run||hrun||trk); }
+let wakeWarned=false, wakeRetryH=null;
+async function grabWake(){
+  try{
+    if(!('wakeLock' in navigator)){
+      if(!wakeWarned){ wakeWarned=true; toast('⚠️ Anti-veille non supporté — augmente le délai de verrouillage automatique dans Réglages'); }
+      return;
+    }
+    wlock = await navigator.wakeLock.request('screen');
+    wlock.addEventListener('release', ()=>{
+      wlock=null;
+      if(anySessionActive()&&!document.hidden) setTimeout(()=>{ if(anySessionActive()&&!document.hidden) grabWake(); },300);
+    });
+  }catch(e){
+    if(!wakeWarned){
+      wakeWarned=true;
+      const lp=/NotAllowedError/i.test(e.name||'');
+      toast(lp?'⚠️ Écran actif bloqué (mode Faible consommation ?) — désactive-le pour cette séance':'⚠️ Anti-veille indisponible sur cet appareil');
+    }
+  }
+  clearInterval(wakeRetryH);
+  wakeRetryH=setInterval(()=>{ if(anySessionActive()&&!document.hidden&&!wlock) grabWake(); else if(!anySessionActive()) clearInterval(wakeRetryH); },15000);
+}
+function releaseWake(){
+  try{ if(wlock){ wlock.release(); wlock=null; } }catch(e){}
+  if(!anySessionActive()){ clearInterval(wakeRetryH); wakeWarned=false; }
+}
+/* reprise systématique de l'écran actif au retour au premier plan, quelle que soit la séance en cours */
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden && anySessionActive()) grabWake();
+});
 
 function hCard(w, custom, idx){
   const src = custom ? 'state.hirt' : 'HPRESETS';
@@ -2471,6 +2794,7 @@ function renderHRun(){
   const rc = isW?'#FFD400':(p.t==='rest'?'#7FC8F0':'#9DB295');
   let h='<div class="row"><button class="btn dim" onclick="quitHirt()">✕ Quitter</button>'
    +'<button class="btn '+(state.voice?'sun':'dim')+' sm" onclick="toggleVoice()" aria-label="coach vocal">'+(state.voice?'🔊':'🔇')+'</button>'
+   +(p.ex&&EX[p.ex]?'<button class="btn ghost sm" onclick="openEx(\''+p.ex+'\')">📖 Fiche</button>':'')
    +'<div class="grow" style="text-align:right"><span class="eyebrow">'+hrun.w.name+'</span></div></div>'
    +'<div class="prog"><i style="width:'+Math.round(hElapsed()/hrun.total*100)+'%"></i></div>'
    +'<div class="hscreen '+cls+'">'
@@ -2485,10 +2809,12 @@ function renderHRun(){
   }
   h+='</div>'
    +'<div class="row" style="margin-top:12px">'
+   +(p.t==='rest'?'<button class="btn dim" onclick="hTrim(15)">−15 s</button>':'')
    +'<button class="btn dim grow" onclick="hrun.paused=!hrun.paused;renderHRun()">'+(hrun.paused?'▶ Reprendre':'⏸ Pause')+'</button>'
    +'<button class="btn ghost" onclick="hSkip()">Suivant ▶</button></div>';
   M.innerHTML=h;
 }
+function hTrim(sec){ hrun.left=Math.max(1,hrun.left-sec); renderHRun(); }
 function hSkip(){ if(hrun.pi>=hrun.ph.length-1){ finishHirt(); return; } hrun.pi++; hrun.left=hrun.ph[hrun.pi].dur; M.scrollTop=0; renderHRun(); }
 function quitHirt(){ if(confirm('Quitter sans enregistrer ?')){ clearInterval(hTimer); shutUp(); hrun=null; releaseWake(); render(); } }
 function finishHirt(){
